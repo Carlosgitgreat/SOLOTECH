@@ -15,6 +15,9 @@ const secret = process.env.JWT_SECRET || 'your_jwt_secret';
 
 app.use(bodyParser.json());
 app.use(cors());
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Middleware para autenticación
 function authenticateToken(req, res, next) {
@@ -105,6 +108,14 @@ app.delete('/tasks/:id', authenticateToken, async (req, res) => {
   res.sendStatus(204);
 });
 
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+// Servir frontend para rutas no API
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
+
+// Remove the listen call as Vercel handles the server
+// app.listen(port, () => {
+//   console.log(`Servidor corriendo en http://localhost:${port}`);
+// });
+
+module.exports = app;
