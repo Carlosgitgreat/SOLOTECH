@@ -170,4 +170,7 @@ app.get('*', (req, res) => {
 //   console.log(`Servidor corriendo en http://localhost:${port}`);
 // });
 
-module.exports = app;
+// Export as Vercel handler
+module.exports = (req, res) => {
+  app(req, res);
+};
