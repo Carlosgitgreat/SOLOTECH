@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+// Removed dotenv as Vercel injects environment variables
 const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
