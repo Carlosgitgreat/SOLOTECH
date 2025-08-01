@@ -10,7 +10,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('/login', { email, password });
       localStorage.setItem('token', response.data.token);
       navigate('/tasks');
     } catch (error) {

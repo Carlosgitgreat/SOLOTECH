@@ -14,7 +14,7 @@ function TaskList() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/tasks', { headers: { Authorization: localStorage.getItem('token') } });
+      const response = await axios.get('/tasks', { headers: { Authorization: localStorage.getItem('token') } });
       setTasks(response.data);
     } catch (error) {
       alert('Error al cargar tareas');
@@ -36,10 +36,10 @@ function TaskList() {
     const taskData = { ...form, dueDate: formattedDueDate };
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/tasks/${editingId}`, taskData, { headers: { Authorization: localStorage.getItem('token') } });
+        await axios.put(`/tasks/${editingId}`, taskData, { headers: { Authorization: localStorage.getItem('token') } });
         setEditingId(null);
       } else {
-        await axios.post('http://localhost:5000/tasks', taskData, { headers: { Authorization: localStorage.getItem('token') } });
+        await axios.post('/tasks', taskData, { headers: { Authorization: localStorage.getItem('token') } });
       }
       setForm({ name: '', category: 'Trabajo', dueDate: '', status: 'Pendiente' });
       fetchTasks();
@@ -56,7 +56,7 @@ function TaskList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${id}`, { headers: { Authorization: localStorage.getItem('token') } });
+      await axios.delete(`/tasks/${id}`, { headers: { Authorization: localStorage.getItem('token') } });
       fetchTasks();
     } catch (error) {
       alert('Error al eliminar tarea');
